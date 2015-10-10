@@ -6,7 +6,7 @@ require('model/functions.fn.php');
 			PROCESS
 ********************************/
 
-if(isset($_POST) && !empty($_POST)) {
+if(isset($_POST)) {
 	if(isset($_POST['email']) && !empty($_POST['email'])
 	&& isset($_POST['username']) && !empty($_POST['username'])
 	&& isset($_POST['password']) && !empty($_POST['password'])){
