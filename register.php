@@ -7,48 +7,50 @@ require('model/functions.fn.php');
 ********************************/
 
 if(isset($_POST) && !empty($_POST)) {
-
-	/* isEmailAvailable
-		return :
-			true if available
-			false if not available
-		$db -> 				database object
-		$email -> 			field value : email
-	*/
-	$email_ok = isEmailAvailable($db, $_POST['email']);
-
-	/* isUsernameAvailable
-		return :
-			true if available
-			false if not available
-		$db -> 				database object
-		$username -> 			field value : username
-	*/
-	$username_ok = isUsernameAvailable($db, $_POST['username']);
-
-
-	if ($email_ok == true && $username_ok == true) {
-		/* userRegistration
+	if(isset($_POST['email']) && !empty($_POST['email'])
+	&& isset($_POST['username']) && !empty($_POST['username'])
+	&& isset($_POST['password']) && !empty($_POST['password'])){
+		/* isEmailAvailable
 			return :
-				true for registration OK
-				false for fail
+				true if available
+				false if not available
 			$db -> 				database object
-			$username -> 		field value : username
 			$email -> 			field value : email
-			$password -> 		field value : password
 		*/
-		userRegistration($db, $_POST['username'], $_POST['email'], $_POST['password']);
-		header('Location: login.php');
-	}
+		$email_ok = isEmailAvailable($db, $_POST['email']);
 
-	if (!$email_ok) {
-		$error = 'Email indisponible';
-	}
+		/* isUsernameAvailable
+			return :
+				true if available
+				false if not available
+			$db -> 				database object
+			$username -> 			field value : username
+		*/
+		$username_ok = isUsernameAvailable($db, $_POST['username']);
 
-	if (!$username_ok) {
-		$error = 'Username indisponible';
-	}
 
+		if ($email_ok == true && $username_ok == true) {
+			/* userRegistration
+				return :
+					true for registration OK
+					false for fail
+				$db -> 				database object
+				$username -> 		field value : username
+				$email -> 			field value : email
+				$password -> 		field value : password
+			*/
+			userRegistration($db, $_POST['username'], $_POST['email'], $_POST['password']);
+			header('Location: login.php');
+		}
+
+		if (!$email_ok) {
+			$error = 'Email indisponible';
+		}
+
+		if (!$username_ok) {
+			$error = 'Username indisponible';
+		}
+	}
 }
 
 /******************************** 
